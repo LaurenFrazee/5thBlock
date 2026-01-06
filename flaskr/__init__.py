@@ -18,5 +18,10 @@ def create_app():
     @app.route("/")
     def index():
         return "5th block is running"
+    
+    @app.route("/test")
+    def test():
+        return "Phase 1 verification successful"
+
 
     return app
