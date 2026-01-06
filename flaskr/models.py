@@ -29,6 +29,12 @@ class Teacher(db.Model):
     password_hash = db.Column(db.String(128), nullable=False)
     avatar = db.Column(db.String(255), default='teacher-avatar.png')
 
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
 
 class Student(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -48,6 +54,12 @@ class Student(db.Model):
 
     avatar_image = db.Column(db.String(255), default='default.png')
 
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
 
 class Parent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -61,3 +73,9 @@ class Parent(db.Model):
         secondary=student_parent,
         back_populates='parents'
     )
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
