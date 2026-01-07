@@ -1,6 +1,6 @@
 
 import os
-
+from flaskr.routes import main_bp
 from flaskr.auth import auth_bp
 from flask import Flask
 from dotenv import load_dotenv
@@ -19,6 +19,7 @@ def create_app():
     # Initialize the database with the app
     db.init_app(app)
     app.register_blueprint(auth_bp)
+    app.register_blueprint(main_bp)
     
     @app.route("/")
     def index():
@@ -27,6 +28,8 @@ def create_app():
     @app.route("/test")
     def test():
         return "Phase 1 verification successful"
+    
+    
 
 
     return app
