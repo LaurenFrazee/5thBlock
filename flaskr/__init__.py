@@ -1,5 +1,7 @@
 
 import os
+
+from flaskr.auth import auth_bp
 from flask import Flask
 from dotenv import load_dotenv
 from .db import db
@@ -14,6 +16,7 @@ def create_app():
     
     # Initialize the database with the app
     db.init_app(app)
+    app.register_blueprint(auth_bp)
     
     @app.route("/")
     def index():
