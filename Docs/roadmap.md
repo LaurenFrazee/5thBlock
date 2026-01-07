@@ -30,12 +30,12 @@ This version emphasizes **clean architecture, phased development, and traceable 
 
 **Goal:** Establish a stable, production-quality Flask foundation.
 
-* [ ] Create Flask application factory (`create_app`)
-* [ ] Configure environment-based settings
-* [ ] Initialize SQLAlchemy instance
-* [ ] Create base project layout
-* [ ] Add `.env.example` and config loading
-* [ ] Verify app boots successfully
+* [x] Create Flask application factory (`create_app`)
+* [x] Configure environment-based settings
+* [x] Initialize SQLAlchemy instance
+* [x] Create base project layout
+* [x] Add `.env.example` and config loading
+* [x] Verify app boots successfully
 
 **Deliverable:**
 Minimal Flask app that runs with no features enabled.
@@ -46,21 +46,22 @@ Minimal Flask app that runs with no features enabled.
 
 **Goal:** Rebuild authentication cleanly with clear role separation.
 
-* [ ] Define base User model
-* [ ] Implement Teacher, Student, Parent models
-* [ ] Password hashing & verification
-* [ ] Auth blueprint (login / logout / signup)
-* [ ] Session management
-* [ ] Role-based access control helpers
+* [x] Auth blueprint scaffolded
+* [x] Login / logout flow
+* [x] Session management
+* [x] Centralized auth helpers
+* [x] Role-based access decorators
+* [x] Role-based access control helpers
+* [x] Unauthorized access redirects
+
 
 **Deliverable:**
-Users can authenticate and land on role-appropriate dashboards.
-
+Authentication works and access control is enforced consistently across roles
 ---
 
 ## Phase 3 — Teacher Experience (Course Management)
 
-**Goal:** Restore teacher control over learning content.
+**Goal:** Restore teRebuild the data layer cleanly using v1 as a reference.
 
 * [ ] Course model
 * [ ] Module model
