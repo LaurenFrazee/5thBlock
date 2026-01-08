@@ -2,7 +2,9 @@
 import os
 from flask import Flask
 from dotenv import load_dotenv
+
 from .db import db
+from .routes import main_bp
 
 def create_app():
     load_dotenv()  # Load environment variables from .env file
