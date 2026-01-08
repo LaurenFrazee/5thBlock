@@ -6,6 +6,7 @@ from flaskr.db import db
 # --------------------
 
 student_parent = db.Table(
+<<<<<<< HEAD
     'student_parent',
     db.Column('student_id', db.Integer, db.ForeignKey('student.id')),
     db.Column('parent_id', db.Integer, db.ForeignKey('parent.id'))
@@ -15,6 +16,17 @@ student_courses = db.Table(
     'student_courses',
     db.Column('student_id', db.Integer, db.ForeignKey('student.id')),
     db.Column('course_id', db.Integer, db.ForeignKey('course.id'))
+=======
+    "student_parent",
+    db.Column("student_id", db.Integer, db.ForeignKey("student.id")),
+    db.Column("parent_id", db.Integer, db.ForeignKey("parent.id")),
+)
+
+student_courses = db.Table(
+    "student_courses",
+    db.Column("student_id", db.Integer, db.ForeignKey("student.id")),
+    db.Column("course_id", db.Integer, db.ForeignKey("course.id")),
+>>>>>>> feature/phase-3-models
 )
 
 # --------------------
@@ -27,7 +39,18 @@ class Teacher(db.Model):
     last_name = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
+<<<<<<< HEAD
     avatar = db.Column(db.String(255), default='teacher-avatar.png')
+=======
+    avatar = db.Column(db.String(255), default="teacher-avatar.png")
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+>>>>>>> feature/phase-3-models
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -42,6 +65,7 @@ class Student(db.Model):
     last_name = db.Column(db.String(64), nullable=False)
     username = db.Column(db.String(64), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
+<<<<<<< HEAD
 
     teacher_id = db.Column(db.Integer, db.ForeignKey('teacher.id'))
     teacher = db.relationship('Teacher', backref='students')
@@ -53,6 +77,26 @@ class Student(db.Model):
     )
 
     avatar_image = db.Column(db.String(255), default='default.png')
+=======
+
+    teacher_id = db.Column(db.Integer, db.ForeignKey("teacher.id"))
+    teacher = db.relationship("Teacher", backref="students")
+
+    parents = db.relationship(
+        "Parent",
+        secondary=student_parent,
+        back_populates="students",
+    )
+
+    avatar_image = db.Column(db.String(255), default="default.png")
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+>>>>>>> feature/phase-3-models
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -69,9 +113,15 @@ class Parent(db.Model):
     password_hash = db.Column(db.String(128), nullable=False)
 
     students = db.relationship(
+<<<<<<< HEAD
         'Student',
         secondary=student_parent,
         back_populates='parents'
+=======
+        "Student",
+        secondary=student_parent,
+        back_populates="parents",
+>>>>>>> feature/phase-3-models
     )
 
     def set_password(self, password):
@@ -79,3 +129,80 @@ class Parent(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+<<<<<<< HEAD
+=======
+
+
+# --------------------
+# Phase 3 Models
+# Course -> Module -> Quiz
+# --------------------
+
+class Course(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+    title = db.Column(db.String(120), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+
+    teacher_id = db.Column(db.Integer, db.ForeignKey("teacher.id"), nullable=False)
+
+    published = db.Column(db.Boolean, nullable=False, default=False)
+
+    start_date = db.Column(db.Date, nullable=True)
+    end_date = db.Column(db.Date, nullable=True)
+
+    # Relationships
+    modules = db.relationship(
+        "Module",
+        back_populates="course",
+        cascade="all, delete-orphan",
+    )
+
+    def __repr__(self) -> str:
+        return f"<Course id={self.id} title={self.title!r} teacher_id={self.teacher_id}>"
+
+
+class Module(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+    title = db.Column(db.String(120), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+
+    course_id = db.Column(db.Integer, db.ForeignKey("course.id"), nullable=False)
+
+    published = db.Column(db.Boolean, nullable=False, default=False)
+
+    start_date = db.Column(db.Date, nullable=True)
+    end_date = db.Column(db.Date, nullable=True)
+
+    # Relationships
+    course = db.relationship("Course", back_populates="modules")
+
+    quizzes = db.relationship(
+        "Quiz",
+        back_populates="module",
+        cascade="all, delete-orphan",
+    )
+
+    def __repr__(self) -> str:
+        return f"<Module id={self.id} title={self.title!r} course_id={self.course_id}>"
+
+
+class Quiz(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+    title = db.Column(db.String(120), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+
+    module_id = db.Column(db.Integer, db.ForeignKey("module.id"), nullable=False)
+
+    published = db.Column(db.Boolean, nullable=False, default=False)
+
+    due_date = db.Column(db.Date, nullable=True)
+
+    # Relationships
+    module = db.relationship("Module", back_populates="quizzes")
+
+    def __repr__(self) -> str:
+        return f"<Quiz id={self.id} title={self.title!r} module_id={self.module_id}>"
+>>>>>>> feature/phase-3-models

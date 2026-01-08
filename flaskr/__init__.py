@@ -4,7 +4,9 @@ from flaskr.routes import main_bp
 from flaskr.auth import auth_bp
 from flask import Flask
 from dotenv import load_dotenv
+
 from .db import db
+from .routes import main_bp
 
 def create_app():
     load_dotenv()  # Load environment variables from .env file
