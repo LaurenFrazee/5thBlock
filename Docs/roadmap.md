@@ -46,6 +46,7 @@ Minimal Flask app that runs with no features enabled.
 
 **Goal:** Rebuild authentication cleanly with clear role separation.
 
+<<<<<<< Updated upstream
 * [x] Auth blueprint scaffolded
 * [x] Login / logout flow
 * [x] Session management
@@ -54,6 +55,14 @@ Minimal Flask app that runs with no features enabled.
 * [x] Role-based access control helpers
 * [x] Unauthorized access redirects
 
+=======
+* [x] Define base User model
+* [x] Implement Teacher, Student, Parent models
+* [x] Password hashing & verification
+* [x] Auth blueprint (login / logout / signup)
+* [x] Session management
+* [x] Role-based access control helpers
+>>>>>>> Stashed changes
 
 **Deliverable:**
 Authentication works and access control is enforced consistently across roles
